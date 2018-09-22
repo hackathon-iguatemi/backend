@@ -109,7 +109,7 @@ app.post("/api/tipo-produto", function (request, response) {
         connection.release();
         if (err) throw err;
         response.send(JSON.stringify(result));
-      response.end();
+        response.end();
       });
     });
   } else {
@@ -147,7 +147,7 @@ app.post("/api/produto", function (request, response) {
         connection.release();
         if (err) throw err;
         response.send(JSON.stringify(result));
-      response.end();
+        response.end();
       });
     });
   } else {
@@ -195,7 +195,7 @@ app.post("/api/pesquisa", function (request, response) {
         connection.release();
         if (err) throw err;
         response.send(JSON.stringify(result));
-      response.end();
+        response.end();
       });
     });
   } else {
@@ -228,7 +228,142 @@ app.post("/api/imagem", function (request, response) {
         connection.release();
         if (err) throw err;
         response.send(JSON.stringify(result));
-      response.end();
+        response.end();
+      });
+    });
+  } else {
+    response.end("Parâmetros inválidos!");
+  }
+});
+
+app.get("/api/cliente-pesquisa-imagem", function (request, response) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "select * from ClientePesquisaImagem";
+
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.post("/api/cliente-pesquisa-imagem", function (request, response) {
+  var idPesquisa = request.body.idPesquisa;
+  var idImagem = request.body.idImagem;
+
+  if (idImagem != undefined && idPesquisa != undefined) {
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+      var sql = 'INSERT INTO ClientePesquisaImagem (idImagem ,idPesquisa) VALUES ("' + idImagem + '", "' + idPesquisa + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
+      });
+    });
+  } else {
+    response.end("Parâmetros inválidos!");
+  }
+});
+
+app.get("/api/cliente-imagem", function (request, response) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "select * from ClienteImagem";
+
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.post("/api/cliente-imagem", function (request, response) {
+  var idImagem = request.body.idImagem;
+  var idCliente = request.body.idCliente;
+  var resultado = request.body.resultado;
+
+  if (idImagem != undefined && idCliente != undefined && resultado != undefined) {
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+      var sql = 'INSERT INTO ClienteImagem (idImagem ,idCliente, resultado) VALUES ("' + idImagem + '", "' + idCliente + '", "' + resultado + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
+      });
+    });
+  } else {
+    response.end("Parâmetros inválidos!");
+  }
+});
+
+app.get("/api/resposta", function (request, response) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "select * from Resposta";
+
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.post("/api/resposta", function (request, response) {
+  var idProduto = request.body.idProduto;
+
+  if (idProduto != undefined) {
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+      var sql = 'INSERT INTO Resposta (idProduto ) VALUES ("' + idProduto + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
+      });
+    });
+  } else {
+    response.end("Parâmetros inválidos!");
+  }
+});
+
+app.get("/api/resposta-pesquisa", function (request, response) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "select * from RespostaPesquisa";
+
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.post("/api/resposta-pesquisa", function (request, response) {
+  var idPesquisa = request.body.idPesquisa;
+  var idResposta = request.body.idResposta;
+  var resultado = request.body.resultado;
+  var horario = request.body.horario;
+  var atendido = request.body.atendido;
+
+  if (idPesquisa != undefined && idResposta != undefined && resultado != undefined && horario != undefined && atendido != undefined) { 
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+      var sql = 'INSERT INTO RespostaPesquisa (idPesquisa ,idResposta ,resultado ,horario ,atendido ) VALUES ("' + idPesquisa + '", "' + idResposta + '", "' + resultado + '", "' + horario + '", "' + atendido + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
       });
     });
   } else {
