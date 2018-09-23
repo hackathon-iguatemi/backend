@@ -8,28 +8,46 @@ import { RequestOptions, Headers, } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Produto } from '../../model/produto';
+import { Base64 } from '@ionic-native/base64';
 
 @Injectable()
 export class ProdutoProvider {
 
-    constructor(public http: HttpClient) {}
+    constructor(public http: HttpClient) { }
 
-    private headers =  new HttpHeaders().set('Content-Type', 'application/json');
-   
-    private handleErrorObservable (error: Response | any) {
+    private headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    private handleErrorObservable(error: Response | any) {
         console.error(error.message || error);
         return Observable.throw(error.message || error);
     }
 
-    getProdutoByIdLoja(idLoja:string): Observable<Produto[]> {
+    getProdutoByIdLoja(idLoja: string): Observable<Produto[]> {
         return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/produto/by-id-loja?idLoja=" + idLoja)
-        // return this.http.get("http://localhost:8080/api/produto/by-id-loja?idLoja=" + idLoja)
-        
-        .map(res => res)
-          .catch(this.handleErrorObservable);
+            // return this.http.get("http://localhost:8080/api/produto/by-id-loja?idLoja=" + idLoja)
+
+            .map(res => res)
+            .catch(this.handleErrorObservable);
+
     }
 
-    addProduto(produto:Produto): Observable<Object> {
+
+    addImage(minhaFoto: any): Observable<Object> {
+        // const url = 'http://localhost:8080/api/produto/';
+        const url = 'https://hacka-jk.herokuapp.com/upload_product';
+        let body = new URLSearchParams();
+        body.set('base64', minhaFoto);
+
+        let options = {
+            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
+        };
+
+        return this.http.post(url, body.toString(), options).map(res => res)
+            .catch(this.handleErrorObservable);
+    }
+
+
+    addProduto(produto: Produto): Observable<Object> {
         // const url = 'http://localhost:8080/api/produto/';
         const url = 'https://hackathon-iguatemi.mybluemix.net/api/produto/';
 
@@ -40,13 +58,13 @@ export class ProdutoProvider {
         body.set('descricao', produto.descricao);
         body.set('tamanho', produto.tamanho);
         body.set('url', produto.url);
-        
+
         let options = {
             headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
         };
 
         return this.http.post(url, body.toString(), options).map(res => res)
-        .catch(this.handleErrorObservable);
+            .catch(this.handleErrorObservable);
     }
 
 }

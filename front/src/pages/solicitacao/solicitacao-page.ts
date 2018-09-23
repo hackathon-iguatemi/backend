@@ -13,6 +13,7 @@ import { Loja } from '../../model/loja';
 export class SolicitacaoPage implements OnInit {
 
   respostasPesquisaLoja: RespostaPesquisaLoja[];
+  // respostasPesquisaLojaSelected: RespostaPesquisaLoja[];
   lojas: Loja[];
   idLoja: string;
 
@@ -28,10 +29,56 @@ export class SolicitacaoPage implements OnInit {
     this.respostaPesquisaLojaProvider.getRespostaPesquisaByIdLojasObservable(this.idLoja)
       .subscribe(res => {
         this.respostasPesquisaLoja = res;
+
+        for (let respostaPesquisa of this.respostasPesquisaLoja) {
+
+          if (String(new Date(respostaPesquisa.data_pesquisa).getTime()) != "NaN") {
+
+            if((new Date(respostaPesquisa.data_pesquisa).getTime()) + ((1000 * 60) * 200) < new Date().getTime()) {
+              respostaPesquisa.ver_botao = false;
+            } else {
+              respostaPesquisa.ver_botao = true;
+            }
+            respostaPesquisa.timer = (new Date(respostaPesquisa.data_pesquisa).getTime()) + ((1000 * 60) * 200);
+          } else {
+            respostaPesquisa.ver_botao = false;
+          }
+
+          respostaPesquisa.data_pesquisa = respostaPesquisa.data_pesquisa.substring(4, respostaPesquisa.data_pesquisa.length);
+          respostaPesquisa.data_pesquisa = respostaPesquisa.data_pesquisa.substring(0, 21);
+
+          if (respostaPesquisa.timer != undefined && respostaPesquisa.timer != NaN) {
+            var setTimeOut = setInterval(function () {
+              respostaPesquisa.timer = respostaPesquisa.timer - 1000;
+
+              if(respostaPesquisa.timer + ((1000 * 60) * 10) < new Date().getTime()) {
+                respostaPesquisa.ver_botao = false;
+              } else {
+                respostaPesquisa.ver_botao = true;
+              }
+
+              var timeinmilli = respostaPesquisa.timer;
+              var seconds = parseInt(String((timeinmilli = timeinmilli / 1000) % 60));
+              var minutes = parseInt(String((timeinmilli = timeinmilli / 60) % 60));
+
+              var result = (minutes < 9 ? "0" + minutes : minutes) + ':' + (seconds < 9 ? "0" + seconds : seconds);
+
+              respostaPesquisa.cronometro = String(result);
+
+            }, 1000);
+
+            setTimeOut;
+          }
+        }
+
       }, err => {
         console.log(err);
       });
 
+
+  }
+
+  public convertMS(ms) {
 
   }
 

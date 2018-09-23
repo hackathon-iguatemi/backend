@@ -427,7 +427,7 @@ app.post("/api/broadcast/", function (request, response) {
   var urls = JSON.parse(request.body.urls);
   var resultado_vr = request.body.resultado_vr;
   var imagensAdded = [];
-  var data_pesquisa = "22/04/2018";
+  var data_pesquisa = new Date();
 
   if (texto_chave != undefined && idCliente != undefined && urls != undefined && resultado_vr != undefined) {
     pool.getConnection(function (err, connection) {
@@ -476,6 +476,7 @@ app.post("/api/broadcast/", function (request, response) {
               if (lojas != undefined) {
                 for (const loja of lojas) {
                   addRespostaPesquisaLoja(resultAddPesquisa.insertId, loja.idLoja, connection);
+                  addRespostaPesquisa(resultAddPesquisa.insertId, connection);
                 }
               }
             }
@@ -512,7 +513,8 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
       + " INNER JOIN ClienteImagem"
       + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
       + " INNER JOIN Imagem"
-      + " ON ClienteImagem.idImagem = Imagem.idImagem";
+      + " ON ClienteImagem.idImagem = Imagem.idImagem"
+      + " WHERE Pesquisa.data_pesquisa <> '22/04/2018' AND Pesquisa.data_pesquisa <> '1537697257245'";
 
     connection.query(sql, function (err, result) {
 
@@ -568,25 +570,26 @@ app.get("/api/resposta-pesquisa-loja", function (request, response) {
   });
 });
 
-app.post("/api/selecao", function (request, response) {
-  var idPesquisa = request.body.idPesquisa;
-  var idProduto = request.body.idProduto;
 
-  if (idPesquisa != undefined && idProduto != undefined) {
-    pool.getConnection(function (err, connection) {
-      if (err) throw err;
-      var sql = 'INSERT INTO Selecao (idPesquisa ,idProduto) VALUES ("' + idPesquisa + '", "' + idProduto + '");'
-      connection.query(sql, function (err, result) {
-        connection.release();
-        if (err) throw err;
-        response.send(JSON.stringify(result));
-        response.end();
-      });
-    });
-  } else {
-    response.end("Parâmetros inválidos!");
-  }
-});
+// app.post("/api/selecao", function (request, response) {
+//   var idPesquisa = request.body.idPesquisa;
+//   var idProduto = request.body.idProduto;
+
+//   if (idPesquisa != undefined && idProduto != undefined) {
+//     pool.getConnection(function (err, connection) {
+//       if (err) throw err;
+//       var sql = 'INSERT INTO Selecao (idPesquisa ,idProduto) VALUES ("' + idPesquisa + '", "' + idProduto + '");'
+//       connection.query(sql, function (err, result) {
+//         connection.release();
+//         if (err) throw err;
+//         response.send(JSON.stringify(result));
+//         response.end();
+//       });
+//     });
+//   } else {
+//     response.end("Parâmetros inválidos!");
+//   }
+// });
 
 
 
@@ -614,6 +617,21 @@ function addClienteImagem(idImagem, idCliente, connection) {
 
 function addClientePesquisaImagem(idImagem, idPesquisa, connection) {
   var sql = 'INSERT INTO ClientePesquisaImagem (idImagem ,idPesquisa) VALUES ("' + idImagem + '", "' + idPesquisa + '");'
+
+  connection.query(sql, function (err, result) {
+    // connection.release();
+    if (err) throw err;
+    return true;
+  });
+}
+
+function addRespostaPesquisa(idPesquisa, connection) {
+  var idResposta = 1;
+  var resultado = false;
+  var horario = "";
+  var atendido = false;
+
+  var sql = 'INSERT INTO RespostaPesquisa (idPesquisa ,idResposta, resultado, horario, atendido) VALUES ("' + idPesquisa + '", "' + idResposta + '", "' + resultado + '", "' + horario + '", "' + atendido + '");'
 
   connection.query(sql, function (err, result) {
     // connection.release();
@@ -653,8 +671,34 @@ app.get("/api/produto/by-id-loja", function (request, response) {
 app.get("/api/selecao", function (request, response) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
-    var sql = "select * from Selecao";
+    var sql = "SELECT * FROM Selecao"
+              + " INNER JOIN Pesquisa"
+              + " ON Selecao.idPesquisa = Pesquisa.idPesquisa"
+              + " INNER JOIN Produto"
+              + " ON Produto.idProduto = Selecao.idProduto"
+              + " INNER JOIN Loja"
+              + " ON Produto.idLoja = Loja.idLoja"
+              + " INNER JOIN RespostaPesquisa"
+              + " ON RespostaPesquisa.idPesquisa = Pesquisa.idPesquisa"
+              + " WHERE (RespostaPesquisa.atendido = false OR  RespostaPesquisa.atendido = 0)";
 
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.post("/api/selecao", function (request, response) {
+  var idPesquisa = request.body.idPesquisa;
+  var resultado = request.body.resultado;
+
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+  
+    var sql = "UPDATE RespostaPesquisa SET resultado ='" + resultado + "', atendido = '1' WHERE idPesquisa='" + idPesquisa +"'";
+console.log(sql);
     connection.query(sql, function (err, result) {
       connection.release();
       if (err) throw err;

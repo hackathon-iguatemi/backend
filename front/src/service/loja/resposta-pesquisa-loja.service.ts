@@ -13,11 +13,11 @@ import { Loja } from '../../model/loja';
 @Injectable()
 export class RespostaPesquisaLojaProvider {
 
-    constructor(public http: HttpClient) {}
+    constructor(public http: HttpClient) { }
 
-    private headers =  new HttpHeaders().set('Content-Type', 'application/json');
-   
-    private handleErrorObservable (error: Response | any) {
+    private headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    private handleErrorObservable(error: Response | any) {
         console.error(error.message || error);
         return Observable.throw(error.message || error);
     }
@@ -25,14 +25,15 @@ export class RespostaPesquisaLojaProvider {
     getAllLojasObservable(): Observable<Loja[]> {
         // return this.http.get("http://localhost:8080/api/loja")
         return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/loja")
-          .map(res => res)
-          .catch(this.handleErrorObservable);
+            .map(res => res)
+            .catch(this.handleErrorObservable);
     }
 
-    getRespostaPesquisaByIdLojasObservable(idLoja:string): Observable<RespostaPesquisaLoja[]> {
+
+    getRespostaPesquisaByIdLojasObservable(idLoja: string): Observable<RespostaPesquisaLoja[]> {
         // return this.http.get("http://localhost:8080/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
         return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
-        .map(res => res)
-          .catch(this.handleErrorObservable);
+            .map(res => res)
+            .catch(this.handleErrorObservable);
     }
 }

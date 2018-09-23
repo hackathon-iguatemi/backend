@@ -94,21 +94,13 @@ export class AdicionarProdutoPage implements OnInit {
 
     addImage(minhaFoto: any) {
         this.entreiAdd = 'ENTREI NO ADD';
-        const url = 'https://hacka-jk.herokuapp.com/upload_product';
-        let body = new URLSearchParams();
-        body.set('base64', minhaFoto);
-
-        let options = {
-            headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded')
-        };
-
-        this.http.post(url, body.toString(), options)
+        this.produtoProvider.addImage(minhaFoto)
             .subscribe(res => {
-                this.produto.url = url + String(res);
-                this.deiPost = 'DEI O POST';
+                const url = 'https://hacka-jk.herokuapp.com/upload_product';
+                this.produto.url = url + res;
             }, err => {
-                this.deiPost = 'DEI O POST' + JSON.stringify(err);
-            })
+                console.log(err);
+            });
     }
 
     public ngOnInit() {

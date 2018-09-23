@@ -25677,3 +25677,47 @@ ion-navbar.toolbar {
   min-height: calc(46px + constant(safe-area-inset-bottom));
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
+
+page-solicitacao .color-button {
+  margin-top: -10px;
+  background: #D6A940;
+}
+
+page-solicitacao .margin-select {
+  padding: 30px;
+  margin-right: -20px;
+}
+
+page-solicitacao .img-resposta {
+  border-radius: 10%;
+}
+
+page-solicitacao .title-status {
+  margin-bottom: -25px;
+}
+
+page-solicitacao .status {
+  margin-top: -10px;
+  font-size: 20px;
+  color: #866b2a;
+}
+
+page-solicitacao .info-resposta {
+  margin-top: -5px;
+  margin-bottom: -30px;
+}
+
+page-solicitacao .img-resposta-icon {
+  margin-bottom: -30px;
+}
+
+page-solicitacao .item-list {
+  margin-bottom: -20px;
+}
+
+page-solicitacao .cronometro {
+  margin-top: -20px;
+  margin-left: 50px;
+  font-size: 20px;
+  color: #06085c;
+}

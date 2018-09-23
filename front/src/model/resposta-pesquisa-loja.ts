@@ -1,3 +1,5 @@
+import { Broadcast } from "./broadcast";
+
 export class RespostaPesquisaLoja {
     idPesquisa: string;
     texto_chave: string;
@@ -7,7 +9,10 @@ export class RespostaPesquisaLoja {
     sexo: string;
     tamanho_roupa: string;
     data_pesquisa: string;
-    resultado_vr: string;
+    timer:number;
+    cronometro:string;
+    ver_botao:boolean;
+    resultado_vr: Broadcast;
     url: string[];
     idLoja:string;
 }
