@@ -465,9 +465,7 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
       + " INNER JOIN ClienteImagem"
       + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
       + " INNER JOIN Imagem"
-      + " ON ClienteImagem.idImagem = Imagem.idImagem"
-      // + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
-      + "";
+      + " ON ClienteImagem.idImagem = Imagem.idImagem";
 
     connection.query(sql, function (err, result) {
 
