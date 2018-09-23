@@ -65,7 +65,7 @@ var HomePage = /** @class */ (function () {
     }
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/home/home.html"*/'\n<ion-tabs>\n  <ion-tab [root]="solicitacao" tabTitle="SOLICITAÇÃO"></ion-tab>\n  <ion-tab [root]="agendamento" tabTitle="AGENDAMENTO"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/home/home.html"*/'\n<ion-tabs>\n  <ion-tab [root]="solicitacao" tabTitle="LEADS"></ion-tab>\n  <ion-tab [root]="agendamento" tabTitle="AGENDAMENTO"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]])
     ], HomePage);
@@ -176,13 +176,14 @@ var SolicitacaoPage = /** @class */ (function () {
     };
     SolicitacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Leads\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()" class="margin-select">\n        <ng-container *ngFor="let loja of lojas">\n            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>\n        </ng-container>\n    </ion-select>\n    <ion-list>\n        <ion-item *ngFor="let resposta of respostasPesquisaLoja" class="item-list">\n            <ion-grid class="title-status">\n                <ion-row>\n                    <ion-col col-12 text-center>\n                        <p class="status">{{resposta.ver_botao == false ? \'PERDIDO!\' : \'PENDENTE!\'}}</p>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n            <ion-grid>\n                <ion-row>\n                    <ion-col col-6>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-4 class="img-resposta-icon">\n                                    <img height="40" width="50" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4e-0MFbXTwq4C_tb8NoWvmiTOyigeoBMDqd7uXhwcAjXDViN-"\n                                    />\n                                </ion-col>\n                                <ion-col col-8>\n                                    <ion-grid class="info-resposta">\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    <b>{{resposta.nome}}</b>\n                                                </p>\n                                            </ion-col>\n                                        </ion-row>\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    {{resposta.data_pesquisa}}</p>\n                                            </ion-col>\n                                        </ion-row>\n                                    </ion-grid>\n                                </ion-col>\n\n                            </ion-row>\n                        </ion-grid>\n\n                    </ion-col>\n                    <ion-col col-6 text-right>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-12 text-center>\n                                    <p class="cronometro" *ngIf="resposta.ver_botao">\n                                        <b> {{resposta.cronometro}}</b>\n                                    </p>\n                                </ion-col>\n                                <ion-col col-12 >\n                                    <button *ngIf="resposta.ver_botao" ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-item>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/,
+            selector: 'page-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Leads\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()" class="margin-select">\n        <ng-container *ngFor="let loja of lojas">\n            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>\n        </ng-container>\n    </ion-select>\n    <ion-list>\n        <ion-item *ngFor="let resposta of respostasPesquisaLoja" class="item-list">\n            <ion-grid class="title-status">\n                <ion-row>\n                    <ion-col col-12 text-center>\n                        <p class="status">{{resposta.ver_botao == false ? \'PERDIDO!\' : \'PENDENTE!\'}}</p>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n            <ion-grid>\n                <ion-row>\n                    <ion-col col-6>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-4 class="img-resposta-icon">\n                                    <img height="40" width="50" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4e-0MFbXTwq4C_tb8NoWvmiTOyigeoBMDqd7uXhwcAjXDViN-"\n                                    />\n                                </ion-col>\n                                <ion-col col-8>\n                                    <ion-grid class="info-resposta">\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    <b>{{resposta.nome}}</b>\n                                                </p>\n                                            </ion-col>\n                                        </ion-row>\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    {{resposta.data_pesquisa}}</p>\n                                            </ion-col>\n                                        </ion-row>\n                                    </ion-grid>\n                                </ion-col>\n\n                            </ion-row>\n                        </ion-grid>\n\n                    </ion-col>\n                    <ion-col col-6 text-right>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-12 text-center>\n                                    <p class="cronometro" *ngIf="resposta.ver_botao">\n                                        <b> {{resposta.cronometro}}</b>\n                                    </p>\n                                </ion-col>\n                                <ion-col col-12>\n                                    <!-- *ngIf="resposta.ver_botao"  -->\n                                    <button ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-item>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */],
+            __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]])
     ], SolicitacaoPage);
     return SolicitacaoPage;
-    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=solicitacao-page.js.map
@@ -196,10 +197,11 @@ var SolicitacaoPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RespostaSolicitacaoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__adicionar_produto_adicionar_produto_page__ = __webpack_require__(206);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__ = __webpack_require__(289);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_selecao__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_resposta_pesquisa_loja__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_produto_produto_service__ = __webpack_require__(205);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__adicionar_produto_adicionar_produto_page__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_selecao_selecao_service__ = __webpack_require__(290);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__model_selecao__ = __webpack_require__(291);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -216,6 +218,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var RespostaSolicitacaoPage = /** @class */ (function () {
     function RespostaSolicitacaoPage(navParams, produtoProvider, navCtrl, selecaoProvider, modalCtrl) {
         this.navParams = navParams;
@@ -223,9 +226,28 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
         this.navCtrl = navCtrl;
         this.selecaoProvider = selecaoProvider;
         this.modalCtrl = modalCtrl;
-        console.log(this.navCtrl.id);
+        this.resposta = new __WEBPACK_IMPORTED_MODULE_2__model_resposta_pesquisa_loja__["a" /* RespostaPesquisaLoja */]();
         this.resposta = this.navParams.get("resposta");
-        console.log(this.resposta);
+        this.resposta.resultado_vr = {
+            "influencer_name": "",
+            "items": [
+                {
+                    "imageID": "",
+                    "ml_analysis": [
+                        {
+                            "article_name": "blazer",
+                            "bounding_box": {
+                                "x0": 442,
+                                "x1": 913,
+                                "y0": 260,
+                                "y1": 694
+                            },
+                            "confidence": 0.5159529447555542
+                        }
+                    ]
+                }
+            ]
+        };
     }
     RespostaSolicitacaoPage.prototype.atualizar = function () {
         this.getProdutos();
@@ -244,7 +266,7 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
         this.getProdutos();
     };
     RespostaSolicitacaoPage.prototype.adicionar = function () {
-        var profileModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__adicionar_produto_adicionar_produto_page__["a" /* AdicionarProdutoPage */], { idLoja: this.resposta.idLoja });
+        var profileModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_4__adicionar_produto_adicionar_produto_page__["a" /* AdicionarProdutoPage */], { idLoja: this.resposta.idLoja });
         profileModal.present();
     };
     RespostaSolicitacaoPage.prototype.selecionar = function (idProduto) {
@@ -252,7 +274,7 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
         console.log(this.idProduto);
     };
     RespostaSolicitacaoPage.prototype.responder = function () {
-        var selecao = new __WEBPACK_IMPORTED_MODULE_5__model_selecao__["a" /* Selecao */]();
+        var selecao = new __WEBPACK_IMPORTED_MODULE_6__model_selecao__["a" /* Selecao */]();
         selecao.idPesquisa = this.resposta.idPesquisa;
         selecao.idProduto = this.idProduto;
         this.selecaoProvider.addProduto(selecao)
@@ -264,13 +286,13 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
     };
     RespostaSolicitacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-resposta-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>\n      Resposta Solicitacao\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE\n  <ion-list>\n      <button ion-item  *ngFor="let produto of produtos">\n        <p text-center>\n          <b>{{produto.nome}}</b></p>\n        <p text-center>\n          <b>{{produto.preco}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricao}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricaoProduto}}</b> </p>\n          <button ion-button item-end (click)="selecionar(produto.idProduto);">SELECIONAR</button>\n      </button>\n  </ion-list>\n\n  \n\n  <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>\n  <button ion-button item-end (click)="adicionar();">ADICIONAR</button>\n  <button ion-button item-end (click)="responder();">RESPONDER</button>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__["a" /* ProdutoProvider */], __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__["a" /* SelecaoProvider */]]
+            selector: 'page-resposta-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>\n      Resposta Solicitacao\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12>\n        <h4>Cliente\n          <b>{{resposta.nome}}</b>\n        </h4>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  <ion-grid>\n    <ion-row>\n      <ion-col col-12>\n        <h4>Result</h4>\n\n        <ion-list>\n          <ion-row>\n            <ion-col col-4 *ngFor="let resp of resposta.url" class="item-list">\n              <img height="100" width="100" [src]="resp" />\n            </ion-col>\n          </ion-row>\n        </ion-list>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n\n  {{resposta.resultado_vr.influencer_name}} {{resposta.resultado_vr.influencer_name}} {{resposta.resultado_vr.items[0].imageID\n  }} {{resposta.resultado_vr.items[0].ml_analysis[0].article_name}} {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x0}}\n  {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x1}} {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x0}}\n  {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x1}} {{resposta.resultado_vr.items[0].ml_analysis[0].confidence}}\n  AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE\n\n  <ion-list>\n    <button ion-item *ngFor="let produto of produtos">\n      <p text-left>\n        <b>{{produto.nome}}</b>\n      </p>\n      <p text-left>\n        <b>{{produto.preco}}</b>\n      </p>\n      <p text-left>\n        <b>{{produto.descricao}}</b>\n      </p>\n      <p text-left>\n        <b>{{produto.descricaoProduto}}</b>\n      </p>\n      <p *ngIf="produto.idProduto == idProduto">\n        <b>SELECIONADO!!!!</b>\n      </p>\n      <button *ngIf="produto.idProduto != idProduto" ion-button item-end (click)="selecionar(produto.idProduto);">SELECIONAR</button>\n    </button>\n  </ion-list>\n\n\n\n  <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>\n  <button ion-button item-end (click)="adicionar();">ADICIONAR</button>\n  <button ion-button item-end (click)="responder();">RESPONDER</button>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_3__service_produto_produto_service__["a" /* ProdutoProvider */], __WEBPACK_IMPORTED_MODULE_5__service_selecao_selecao_service__["a" /* SelecaoProvider */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__["a" /* ProdutoProvider */],
+            __WEBPACK_IMPORTED_MODULE_3__service_produto_produto_service__["a" /* ProdutoProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__["a" /* SelecaoProvider */],
+            __WEBPACK_IMPORTED_MODULE_5__service_selecao_selecao_service__["a" /* SelecaoProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]])
     ], RespostaSolicitacaoPage);
     return RespostaSolicitacaoPage;
@@ -362,8 +384,8 @@ var ProdutoProvider = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AdicionarProdutoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_produto__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_produto__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_produto_produto_service__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(207);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -699,6 +721,21 @@ var RespostaPesquisaLojaProvider = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RespostaPesquisaLoja; });
+var RespostaPesquisaLoja = /** @class */ (function () {
+    function RespostaPesquisaLoja() {
+    }
+    return RespostaPesquisaLoja;
+}());
+
+//# sourceMappingURL=resposta-pesquisa-loja.js.map
+
+/***/ }),
+
+/***/ 288:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Produto; });
 var Produto = /** @class */ (function () {
     function Produto() {
@@ -710,7 +747,7 @@ var Produto = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 288:
+/***/ 289:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -769,7 +806,7 @@ var TipoProdutoProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 290:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -834,7 +871,7 @@ var SelecaoProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 290:
+/***/ 291:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

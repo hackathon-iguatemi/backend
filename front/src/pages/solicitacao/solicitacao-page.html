@@ -60,8 +60,9 @@
                                         <b> {{resposta.cronometro}}</b>
                                     </p>
                                 </ion-col>
-                                <ion-col col-12 >
-                                    <button *ngIf="resposta.ver_botao" ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>
+                                <ion-col col-12>
+                                    <!-- *ngIf="resposta.ver_botao"  -->
+                                    <button ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>
                                 </ion-col>
                             </ion-row>
                         </ion-grid>

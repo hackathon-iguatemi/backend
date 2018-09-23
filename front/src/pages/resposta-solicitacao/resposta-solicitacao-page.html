@@ -7,23 +7,60 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <h4>Cliente
+          <b>{{resposta.nome}}</b>
+        </h4>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <h4>Result</h4>
+
+        <ion-list>
+          <ion-row>
+            <ion-col col-4 *ngFor="let resp of resposta.url" class="item-list">
+              <img height="100" width="100" [src]="resp" />
+            </ion-col>
+          </ion-row>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  {{resposta.resultado_vr.influencer_name}} {{resposta.resultado_vr.influencer_name}} {{resposta.resultado_vr.items[0].imageID
+  }} {{resposta.resultado_vr.items[0].ml_analysis[0].article_name}} {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x0}}
+  {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x1}} {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x0}}
+  {{resposta.resultado_vr.items[0].ml_analysis[0].bounding_box.x1}} {{resposta.resultado_vr.items[0].ml_analysis[0].confidence}}
   AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE
+
   <ion-list>
-      <button ion-item  *ngFor="let produto of produtos">
-        <p text-center>
-          <b>{{produto.nome}}</b></p>
-        <p text-center>
-          <b>{{produto.preco}}</b> </p>
-        <p text-center>
-          <b>{{produto.descricao}}</b> </p>
-        <p text-center>
-          <b>{{produto.descricaoProduto}}</b> </p>
-          <button ion-button item-end (click)="selecionar(produto.idProduto);">SELECIONAR</button>
-      </button>
+    <button ion-item *ngFor="let produto of produtos">
+      <p text-left>
+        <b>{{produto.nome}}</b>
+      </p>
+      <p text-left>
+        <b>{{produto.preco}}</b>
+      </p>
+      <p text-left>
+        <b>{{produto.descricao}}</b>
+      </p>
+      <p text-left>
+        <b>{{produto.descricaoProduto}}</b>
+      </p>
+      <p *ngIf="produto.idProduto == idProduto">
+        <b>SELECIONADO!!!!</b>
+      </p>
+      <button *ngIf="produto.idProduto != idProduto" ion-button item-end (click)="selecionar(produto.idProduto);">SELECIONAR</button>
+    </button>
   </ion-list>
 
-  
+
 
   <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>
   <button ion-button item-end (click)="adicionar();">ADICIONAR</button>
