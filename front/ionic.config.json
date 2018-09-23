@@ -1,0 +1,7 @@
+{
+  "name": "jkiguatemi",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

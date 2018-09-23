@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>
+            Solicitacao
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-card *ngFor="let resposta of respostasPesquisaLoja">
+
+            <button ion-item>
+                <p text-center>
+                    <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4  *ngFor="let url of resposta.url" height="300" >
+                            <img height="100%" src="{{url}}"/>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <button ion-button item-end>Aceitar</button>
+            </button>
+        </ion-card>
+    </ion-list>
+</ion-content>
