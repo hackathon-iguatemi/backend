@@ -1,4 +1,4 @@
-#Sun Sep 23 07:44:50 BRT 2018
+#Sun Sep 23 10:47:58 BRT 2018
 base.0=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.0=classes.dex
 file.0=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

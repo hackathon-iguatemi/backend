@@ -71,6 +71,14 @@ module.exports = [
     "clobbers": [
       "CameraPopoverHandle"
     ]
+  },
+  {
+    "id": "com-badrit-base64.Base64",
+    "file": "plugins/com-badrit-base64/www/Base64.js",
+    "pluginId": "com-badrit-base64",
+    "clobbers": [
+      "navigator.Base64"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -82,7 +90,8 @@ module.exports.metadata =
   "cordova-plugin-splashscreen": "5.0.2",
   "cordova-plugin-ionic-webview": "2.1.4",
   "cordova-plugin-ionic-keyboard": "2.1.2",
-  "cordova-plugin-camera": "4.0.3"
+  "cordova-plugin-camera": "4.0.3",
+  "com-badrit-base64": "0.2.0"
 };
 // BOTTOM OF METADATA
 });

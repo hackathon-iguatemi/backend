@@ -13,6 +13,9 @@ import { RespostaSolicitacaoPage } from '../pages/resposta-solicitacao/resposta-
 import { AdicionarProdutoPage } from '../pages/adicionar-produto/adicionar-produto-page';
 import { FormsModule } from '../../node_modules/@angular/forms';
 import { Camera } from '@ionic-native/camera';
+import { Base64 } from '@ionic-native/base64';
+import { HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { Camera } from '@ionic-native/camera';
     IonicModule.forRoot(MyApp),
     HttpClientModule,
     FormsModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,6 +46,7 @@ import { Camera } from '@ionic-native/camera';
     StatusBar,
     SplashScreen,
     Camera,
+    Base64,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

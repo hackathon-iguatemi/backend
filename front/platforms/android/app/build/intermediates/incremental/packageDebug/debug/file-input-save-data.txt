@@ -1,5 +1,6 @@
 #Internal package file, do not edit.
-#Sun Sep 23 07:44:50 BRT 2018
+#Sun Sep 23 10:47:58 BRT 2018
+76.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 5.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 42.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 32.set=ASSET
@@ -20,7 +21,7 @@
 32.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 65.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-bold.woff2
 17.set=ANDROID_RESOURCE
-75.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/mipmap-mdpi-v4/icon.png
+75.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/plugins/com-badrit-base64/www/Base64.js
 50.set=ANDROID_RESOURCE
 68.set=ASSET
 4.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/ionicons.woff
@@ -45,7 +46,7 @@
 31.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/noto-sans.scss
 59.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/ionicons.scss
 24.set=ANDROID_RESOURCE
-75.set=ANDROID_RESOURCE
+75.set=ASSET
 25.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/roboto-light.ttf
 63.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 35.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-land-xhdpi-v4/screen.png
@@ -80,8 +81,9 @@
 66.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-port-xhdpi-v4/screen.png
 17.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 27.set=ASSET
+76.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/mipmap-mdpi-v4/icon.png
 60.set=ASSET
-count=76
+count=77
 5.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/service-worker.js
 27.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 42.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-camera/www/CameraPopoverHandle.js
@@ -163,7 +165,7 @@ count=76
 65.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 33.set=ASSET
 37.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/noto-sans-bold.woff
-75.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
+75.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 4.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 41.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 69.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
@@ -212,6 +214,7 @@ count=76
 20.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/build/main.js
 15.base=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug
 48.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/plugins/cordova-plugin-splashscreen/www/splashscreen.js
+76.set=ANDROID_RESOURCE
 30.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/assets/debug/www/assets/fonts/ionicons.woff2
 58.file=/home/augusto/Workspace/hackathons/backend/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_/res/drawable-port-ldpi-v4/screen.png
 14.set=ASSET
