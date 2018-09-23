@@ -2,4 +2,4 @@
 applications:
 - name:    hello-node
   random-route: true
-  memory:  128M
+  memory:  256M
