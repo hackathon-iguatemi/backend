@@ -1,6 +1,6 @@
 var express = require("express"), app = express();
 var port = process.env.PORT || 8080;
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/front'));
 
 var bodyParser = require('body-parser')
 var cors = require('cors')
@@ -448,37 +448,37 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
 
-      var sql = "SELECT * " 
-                +  " FROM Cliente"
-                +  " INNER JOIN Pesquisa "
-                +  " ON Pesquisa.idCliente = Cliente.idCliente"
-                +  " INNER JOIN RespostaPesquisaLoja"
-                +  " ON RespostaPesquisaLoja.idPesquisa = Pesquisa.idPesquisa"
-                +  " INNER JOIN ClientePesquisaImagem"
-                +  " ON Pesquisa.idPesquisa = ClientePesquisaImagem.idPesquisa"
-                +  " INNER JOIN ClienteImagem"
-                +  " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
-                +  " INNER JOIN Imagem"
-                +  " ON ClienteImagem.idImagem = Imagem.idImagem"
-                +  " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
-                +  "";
+    var sql = "SELECT * "
+      + " FROM Cliente"
+      + " INNER JOIN Pesquisa "
+      + " ON Pesquisa.idCliente = Cliente.idCliente"
+      + " INNER JOIN RespostaPesquisaLoja"
+      + " ON RespostaPesquisaLoja.idPesquisa = Pesquisa.idPesquisa"
+      + " INNER JOIN ClientePesquisaImagem"
+      + " ON Pesquisa.idPesquisa = ClientePesquisaImagem.idPesquisa"
+      + " INNER JOIN ClienteImagem"
+      + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
+      + " INNER JOIN Imagem"
+      + " ON ClienteImagem.idImagem = Imagem.idImagem"
+      + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
+      + "";
 
     connection.query(sql, function (err, result) {
-      
+
       connection.release();
       if (err) throw err;
       // response.end("" + JSON.stringify(result));
 
-      for(var responsePesquisa of result) {
+      for (var responsePesquisa of result) {
         var contains = false;
-        for(var resposta_pesquisa of array_resposta_pesquisa) {
-          if(resposta_pesquisa.idPesquisa == responsePesquisa.idPesquisa) {
+        for (var resposta_pesquisa of array_resposta_pesquisa) {
+          if (resposta_pesquisa.idPesquisa == responsePesquisa.idPesquisa) {
             contains = true;
             resposta_pesquisa.url.push(responsePesquisa.url);
           }
         }
 
-        if(contains == false) {
+        if (contains == false) {
           var resposta_pesquisa = {};
 
           resposta_pesquisa.idPesquisa = responsePesquisa.idPesquisa;
@@ -491,11 +491,11 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
           resposta_pesquisa.data_pesquisa = responsePesquisa.data_pesquisa;
           resposta_pesquisa.resultado_vr = responsePesquisa.resultado_vr;
           resposta_pesquisa.idLoja = responsePesquisa.idLoja;
-      
+
           resposta_pesquisa.url = [];
           resposta_pesquisa.url.push(responsePesquisa.url);
           array_resposta_pesquisa.push(resposta_pesquisa);
-        } 
+        }
       }
 
       response.end("" + JSON.stringify(array_resposta_pesquisa));
@@ -587,9 +587,9 @@ app.get("/api/produto/by-id-loja", function (request, response) {
   pool.getConnection(function (err, connection) {
     if (err) throw err;
     var sql = "SELECT *, Produto.descricao as descricaoProduto from Produto "
-    + " RIGHT JOIN TipoProduto" 
-    + " ON Produto.idTipoProduto = TipoProduto.idTipoProduto"
-    + " WHERE Produto.idLoja = '" + idLoja + "'";
+      + " RIGHT JOIN TipoProduto"
+      + " ON Produto.idTipoProduto = TipoProduto.idTipoProduto"
+      + " WHERE Produto.idLoja = '" + idLoja + "'";
 
     connection.query(sql, function (err, result) {
       connection.release();
