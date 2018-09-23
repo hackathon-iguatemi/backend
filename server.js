@@ -1,5 +1,6 @@
 var express = require("express"), app = express();
 var port = process.env.PORT || 8080;
+var rp = require('request-promise').defaults({simple: false})
 
 app.use(express.static(__dirname + '/front/www/'));
 
@@ -43,8 +44,54 @@ app.post("/api/cliente", function (request, response) {
       connection.query(sql, function (err, result) {
         connection.release();
         if (err) throw err;
-        response.send(JSON.stringify(result));
-        response.end();
+        // response.send(JSON.stringify(result));
+        // response.end();
+
+        let requestOptions = {
+          resolveWithFullResponse: true,
+          method: 'POST',
+          uri: 'http://api.hack.platformbuilders.io/iguatemi/v1/clientes',
+          body: {
+            "bairro": "Vila Olimpia",
+            "cep": "04543-011",
+            "cidade": "SÃO PAULO",
+            "complemento": "",
+            "dataModificacao": "2018-06-26T12:06:00.000Z",
+            "dataNascimento": data_nasc,
+            "ddd": "11",
+            "email": "hackathon@iguatemi.com",
+            "endereco": "",
+            "estado": "SÃO PAULO",
+            "estadoCivil": "CASADO(A)",
+            "faixaEtaria": "51 A 60 ANOS",
+            "genero": sexo,
+            "idade": "57",
+            "nome": nome,
+            "ocupacao": "JORNALISTA",
+            "possuiCpfCadastrado": true,
+            "possuiEmailCadastrado": true,
+            "possuiEnderecoCadastrado": true,
+            "telefone": "0000-0000"
+          },
+          json: true,
+          headers: {
+            'api-key': 'ef0ea7e8b7bd4087a6ab4d76f0d37b06'
+          }
+        }
+
+        rp(requestOptions).then((rpResp) => {
+
+          let body = rpResp.body
+
+          console.log(body)
+          console.log('+++++++++++++++++++++++==')
+
+          response.send(JSON.stringify(result));
+          response.end();
+
+        })
+
+
       });
     });
   } else {

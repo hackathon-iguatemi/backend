@@ -9,7 +9,8 @@
     "express-cors": "0.0.3",
     "http-post": "^0.1.1",
     "http-proxy": "^1.8.1",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "request-promise": "^4.2.2"
   },
   "main": "server.js",
   "scripts": {
