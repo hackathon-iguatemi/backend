@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RespostaSolicitacaoPage } from '../pages/resposta-solicitacao/resposta-solicitacao-page';
 import { AdicionarProdutoPage } from '../pages/adicionar-produto/adicionar-produto-page';
 import { FormsModule } from '../../node_modules/@angular/forms';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { FormsModule } from '../../node_modules/@angular/forms';
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
