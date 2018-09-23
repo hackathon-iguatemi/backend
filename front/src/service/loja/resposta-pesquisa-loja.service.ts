@@ -8,6 +8,7 @@ import { RequestOptions, Headers, } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { RespostaPesquisaLoja } from '../../model/resposta-pesquisa-loja';
+import { Loja } from '../../model/loja';
 
 @Injectable()
 export class RespostaPesquisaLojaProvider {
@@ -19,6 +20,12 @@ export class RespostaPesquisaLojaProvider {
     private handleErrorObservable (error: Response | any) {
         console.error(error.message || error);
         return Observable.throw(error.message || error);
+    }
+
+    getAllLojasObservable(): Observable<Loja[]> {
+        return this.http.get("http://localhost:8080/api/loja")
+          .map(res => res)
+          .catch(this.handleErrorObservable);
     }
 
     getRespostaPesquisaByIdLojasObservable(idLoja:string): Observable<RespostaPesquisaLoja[]> {

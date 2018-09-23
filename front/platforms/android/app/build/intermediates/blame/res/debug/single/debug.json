@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/build/intermediates/res/merged/debug/xml_camera_provider_paths.xml.flat",
+        "source": "/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/src/main/res/xml/camera_provider_paths.xml"
+    },
+    {
         "merged": "/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
         "source": "/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
     },

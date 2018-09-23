@@ -517,17 +517,14 @@ app.get("/api/resposta-pesquisa-loja", function (request, response) {
   });
 });
 
-app.post("/api/resposta-pesquisa", function (request, response) {
+app.post("/api/selecao", function (request, response) {
   var idPesquisa = request.body.idPesquisa;
-  var idResposta = request.body.idResposta;
-  var resultado = request.body.resultado;
-  var horario = request.body.horario;
-  var atendido = request.body.atendido;
+  var idProduto = request.body.idProduto;
 
-  if (idPesquisa != undefined && idResposta != undefined && resultado != undefined && horario != undefined && atendido != undefined) {
+  if (idPesquisa != undefined && idProduto != undefined) {
     pool.getConnection(function (err, connection) {
       if (err) throw err;
-      var sql = 'INSERT INTO RespostaPesquisa (idPesquisa ,idResposta ,resultado ,horario ,atendido ) VALUES ("' + idPesquisa + '", "' + idResposta + '", "' + resultado + '", "' + horario + '", "' + atendido + '");'
+      var sql = 'INSERT INTO Selecao (idPesquisa ,idProduto) VALUES ("' + idPesquisa + '", "' + idProduto + '");'
       connection.query(sql, function (err, result) {
         connection.release();
         if (err) throw err;

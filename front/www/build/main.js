@@ -104,12 +104,22 @@ var SolicitacaoPage = /** @class */ (function () {
         this.app = app;
         this.respostaPesquisaLojaProvider = respostaPesquisaLojaProvider;
     }
+    SolicitacaoPage.prototype.modifyLoja = function () {
+        var _this = this;
+        this.respostasPesquisaLoja = new Array();
+        this.respostaPesquisaLojaProvider.getRespostaPesquisaByIdLojasObservable(this.idLoja)
+            .subscribe(function (res) {
+            _this.respostasPesquisaLoja = res;
+        }, function (err) {
+            console.log(err);
+        });
+    };
     SolicitacaoPage.prototype.ngOnInit = function () {
         var _this = this;
         this.respostasPesquisaLoja = new Array();
-        this.respostaPesquisaLojaProvider.getRespostaPesquisaByIdLojasObservable("1")
+        this.respostaPesquisaLojaProvider.getAllLojasObservable()
             .subscribe(function (res) {
-            _this.respostasPesquisaLoja = res;
+            _this.lojas = res;
         }, function (err) {
             console.log(err);
         });
@@ -118,6 +128,7 @@ var SolicitacaoPage = /** @class */ (function () {
         this.openPage(resposta);
     };
     SolicitacaoPage.prototype.openPage = function (resposta) {
+        resposta.idLoja = this.idLoja;
         var params = {
             "resposta": resposta
         };
@@ -125,7 +136,7 @@ var SolicitacaoPage = /** @class */ (function () {
     };
     SolicitacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-solicitacao',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Solicitacao\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <ion-list>\n        <ion-card *ngFor="let resposta of respostasPesquisaLoja">\n\n            <button ion-item>\n                <p text-center>\n                    <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col col-4  *ngFor="let url of resposta.url" height="300" >\n                            <img height="100%" src="{{url}}"/>\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n                <button ion-button item-end (click)="aceitar(resposta);">Aceitar</button>\n            </button>\n        </ion-card>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/front/src/pages/solicitacao/solicitacao-page.html"*/,
+            selector: 'page-solicitacao',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Solicitacao\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()">\n        <ng-container *ngFor="let loja of lojas">\n            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>\n        </ng-container>\n    </ion-select>\n\n\n    <ion-list>\n        <ion-card *ngFor="let resposta of respostasPesquisaLoja">\n\n            <button ion-item>\n                <p text-center>\n                    <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col col-4 *ngFor="let url of resposta.url" height="300">\n                            <img height="100%" src="{{url}}" />\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n                <button ion-button item-end (click)="aceitar(resposta);">Aceitar</button>\n            </button>\n        </ion-card>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/front/src/pages/solicitacao/solicitacao-page.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
@@ -148,6 +159,8 @@ var SolicitacaoPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__adicionar_produto_adicionar_produto_page__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__model_selecao__ = __webpack_require__(290);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -162,11 +175,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 var RespostaSolicitacaoPage = /** @class */ (function () {
-    function RespostaSolicitacaoPage(navParams, produtoProvider, navCtrl, modalCtrl) {
+    function RespostaSolicitacaoPage(navParams, produtoProvider, navCtrl, selecaoProvider, modalCtrl) {
         this.navParams = navParams;
         this.produtoProvider = produtoProvider;
         this.navCtrl = navCtrl;
+        this.selecaoProvider = selecaoProvider;
         this.modalCtrl = modalCtrl;
         console.log(this.navCtrl.id);
         this.resposta = this.navParams.get("resposta");
@@ -192,14 +208,30 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
         var profileModal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_3__adicionar_produto_adicionar_produto_page__["a" /* AdicionarProdutoPage */], { idLoja: this.resposta.idLoja });
         profileModal.present();
     };
+    RespostaSolicitacaoPage.prototype.selecionar = function (idProduto) {
+        this.idProduto = idProduto;
+        console.log(this.idProduto);
+    };
+    RespostaSolicitacaoPage.prototype.responder = function () {
+        var selecao = new __WEBPACK_IMPORTED_MODULE_5__model_selecao__["a" /* Selecao */]();
+        selecao.idPesquisa = this.resposta.idPesquisa;
+        selecao.idProduto = this.idProduto;
+        this.selecaoProvider.addProduto(selecao)
+            .subscribe(function (res) {
+            console.log(res);
+        }, function (err) {
+            console.log(err);
+        });
+    };
     RespostaSolicitacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-resposta-solicitacao',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>\n      Resposta Solicitacao\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE\n  <ion-list>\n    <ion-card *ngFor="let produto of produtos">\n      <button ion-item>\n        <p text-center>\n          <b>{{produto.nome}}</b></p>\n        <p text-center>\n          <b>{{produto.preco}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricao}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricaoProduto}}</b> </p>\n        <p text-center>\n          <b>{{produto.tamanho}}</b> CHECK</p>\n      </button>\n    </ion-card>\n  </ion-list>\n\n  <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>\n  <button ion-button item-end (click)="adicionar();">ADICIONAR</button>\n  <button ion-button item-end (click)="responder();">RESPONDER</button>\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__["a" /* ProdutoProvider */]]
+            selector: 'page-resposta-solicitacao',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title text-center>\n      Resposta Solicitacao\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE\n  <ion-list>\n      <button ion-item  *ngFor="let produto of produtos">\n        <p text-center>\n          <b>{{produto.nome}}</b></p>\n        <p text-center>\n          <b>{{produto.preco}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricao}}</b> </p>\n        <p text-center>\n          <b>{{produto.descricaoProduto}}</b> </p>\n          <button ion-button item-end (click)="selecionar(produto.idProduto);">SELECIONAR</button>\n      </button>\n  </ion-list>\n\n  \n\n  <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>\n  <button ion-button item-end (click)="adicionar();">ADICIONAR</button>\n  <button ion-button item-end (click)="responder();">RESPONDER</button>\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/front/src/pages/resposta-solicitacao/resposta-solicitacao-page.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__["a" /* ProdutoProvider */], __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__["a" /* SelecaoProvider */]]
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__service_produto_produto_service__["a" /* ProdutoProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_4__service_selecao_selecao_service__["a" /* SelecaoProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* ModalController */]])
     ], RespostaSolicitacaoPage);
     return RespostaSolicitacaoPage;
@@ -214,16 +246,16 @@ var RespostaSolicitacaoPage = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProdutoProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -432,7 +464,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(198);
@@ -441,7 +473,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_solicitacao_solicitacao_page__ = __webpack_require__(203);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_agendamento_agendamento_page__ = __webpack_require__(208);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_common_http__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_resposta_solicitacao_resposta_solicitacao_page__ = __webpack_require__(204);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_adicionar_produto_adicionar_produto_page__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__node_modules_angular_forms__ = __webpack_require__(15);
@@ -562,16 +594,16 @@ var MyApp = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RespostaPesquisaLojaProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -599,6 +631,11 @@ var RespostaPesquisaLojaProvider = /** @class */ (function () {
     RespostaPesquisaLojaProvider.prototype.handleErrorObservable = function (error) {
         console.error(error.message || error);
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
+    };
+    RespostaPesquisaLojaProvider.prototype.getAllLojasObservable = function () {
+        return this.http.get("http://localhost:8080/api/loja")
+            .map(function (res) { return res; })
+            .catch(this.handleErrorObservable);
     };
     RespostaPesquisaLojaProvider.prototype.getRespostaPesquisaByIdLojasObservable = function (idLoja) {
         return this.http.get("http://localhost:8080/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
@@ -636,16 +673,16 @@ var Produto = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TipoProdutoProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -687,6 +724,86 @@ var TipoProdutoProvider = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=tipo-produto.service.js.map
+
+/***/ }),
+
+/***/ 289:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SelecaoProvider; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_throw__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_common_http__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+
+var SelecaoProvider = /** @class */ (function () {
+    function SelecaoProvider(http) {
+        this.http = http;
+        this.headers = new __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["c" /* HttpHeaders */]().set('Content-Type', 'application/json');
+    }
+    SelecaoProvider.prototype.handleErrorObservable = function (error) {
+        console.error(error.message || error);
+        return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
+    };
+    SelecaoProvider.prototype.addProduto = function (selecao) {
+        var url = 'http://localhost:8080/api/selecao/';
+        var body = new URLSearchParams();
+        body.set('idProduto', selecao.idProduto);
+        body.set('idPesquisa', selecao.idPesquisa);
+        var options = {
+            headers: new __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["c" /* HttpHeaders */]().set('Content-Type', 'application/x-www-form-urlencoded')
+        };
+        return this.http.post(url, body.toString(), options).map(function (res) { return res; })
+            .catch(this.handleErrorObservable);
+    };
+    SelecaoProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_4__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_5__angular_common_http__["a" /* HttpClient */]])
+    ], SelecaoProvider);
+    return SelecaoProvider;
+}());
+
+//# sourceMappingURL=selecao.service.js.map
+
+/***/ }),
+
+/***/ 290:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Selecao; });
+var Selecao = /** @class */ (function () {
+    function Selecao() {
+    }
+    return Selecao;
+}());
+
+//# sourceMappingURL=selecao.js.map
 
 /***/ })
 

@@ -7,6 +7,13 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()">
+        <ng-container *ngFor="let loja of lojas">
+            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>
+        </ng-container>
+    </ion-select>
+
+
     <ion-list>
         <ion-card *ngFor="let resposta of respostasPesquisaLoja">
 
@@ -15,8 +22,8 @@
                     <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>
                 <ion-grid>
                     <ion-row>
-                        <ion-col col-4  *ngFor="let url of resposta.url" height="300" >
-                            <img height="100%" src="{{url}}"/>
+                        <ion-col col-4 *ngFor="let url of resposta.url" height="300">
+                            <img height="100%" src="{{url}}" />
                         </ion-col>
                     </ion-row>
                 </ion-grid>
