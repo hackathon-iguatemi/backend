@@ -1,7 +1,15 @@
 var express = require("express"), app = express();
 var port = process.env.PORT || 8080;
+<<<<<<< HEAD
 
 app.use(express.static(__dirname + '/front/www/'));
+=======
+<<<<<<< HEAD
+app.use(express.static(__dirname + '/front'));
+=======
+app.use(express.static(__dirname + '/front/www/build'));
+>>>>>>> 09a596ab551a4f0e6a7b615aa593d7d7c62dfb8c
+>>>>>>> b945418486e9c73b986bbd13389030e8ca59a1ef
 
 var bodyParser = require('body-parser')
 var cors = require('cors')
@@ -466,7 +474,11 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
       + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
       + " INNER JOIN Imagem"
       + " ON ClienteImagem.idImagem = Imagem.idImagem"
+<<<<<<< HEAD
+      + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
+=======
       // + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
+>>>>>>> 09a596ab551a4f0e6a7b615aa593d7d7c62dfb8c
       + "";
 
     connection.query(sql, function (err, result) {
