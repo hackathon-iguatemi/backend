@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sun Sep 23 04:04:03 BRT 2018
+#Sun Sep 23 04:13:08 BRT 2018
 5.base=/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/build/intermediates/res/debug/resources-debug.ap_
 42.base=/home/augusto/Workspace/hackathons/backend/front/platforms/android/app/build/intermediates/assets/debug
 32.set=ASSET

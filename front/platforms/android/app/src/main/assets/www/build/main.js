@@ -285,12 +285,13 @@ var ProdutoProvider = /** @class */ (function () {
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
     };
     ProdutoProvider.prototype.getProdutoByIdLoja = function (idLoja) {
-        return this.http.get("http://localhost:8080/api/produto/by-id-loja?idLoja=" + idLoja)
+        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/produto/by-id-loja?idLoja=" + idLoja)
             .map(function (res) { return res; })
             .catch(this.handleErrorObservable);
     };
     ProdutoProvider.prototype.addProduto = function (produto) {
-        var url = 'http://localhost:8080/api/produto/';
+        // const url = 'http://localhost:8080/api/produto/';
+        var url = 'https://http://hackathon-iguatemi.mybluemix.net/api/produto/';
         var body = new URLSearchParams();
         body.set('idLoja', produto.idLoja);
         body.set('idTipoProduto', produto.idTipoProduto);
@@ -633,12 +634,14 @@ var RespostaPesquisaLojaProvider = /** @class */ (function () {
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
     };
     RespostaPesquisaLojaProvider.prototype.getAllLojasObservable = function () {
-        return this.http.get("http://localhost:8080/api/loja")
+        // return this.http.get("http://localhost:8080/api/loja")
+        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/loja")
             .map(function (res) { return res; })
             .catch(this.handleErrorObservable);
     };
     RespostaPesquisaLojaProvider.prototype.getRespostaPesquisaByIdLojasObservable = function (idLoja) {
-        return this.http.get("http://localhost:8080/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
+        // return this.http.get("http://localhost:8080/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
+        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
             .map(function (res) { return res; })
             .catch(this.handleErrorObservable);
     };
@@ -712,7 +715,7 @@ var TipoProdutoProvider = /** @class */ (function () {
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
     };
     TipoProdutoProvider.prototype.getTiposProdutos = function () {
-        return this.http.get("http://localhost:8080/api/tipo-produto")
+        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/tipo-produto")
             .map(function (res) { return res; })
             .catch(this.handleErrorObservable);
     };
@@ -771,7 +774,7 @@ var SelecaoProvider = /** @class */ (function () {
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
     };
     SelecaoProvider.prototype.addProduto = function (selecao) {
-        var url = 'http://localhost:8080/api/selecao/';
+        var url = 'https://http://hackathon-iguatemi.mybluemix.net/api/selecao/';
         var body = new URLSearchParams();
         body.set('idProduto', selecao.idProduto);
         body.set('idPesquisa', selecao.idPesquisa);
