@@ -24,16 +24,14 @@ export class RespostaPesquisaLojaProvider {
 
     getAllLojasObservable(): Observable<Loja[]> {
         // return this.http.get("http://localhost:8080/api/loja")
-        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/loja")
+        return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/loja")
           .map(res => res)
           .catch(this.handleErrorObservable);
     }
 
     getRespostaPesquisaByIdLojasObservable(idLoja:string): Observable<RespostaPesquisaLoja[]> {
         // return this.http.get("http://localhost:8080/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
-        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
-        
-        
+        return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/resposta-pesquisa-loja/by-id?idLoja=" + idLoja)
         .map(res => res)
           .catch(this.handleErrorObservable);
     }

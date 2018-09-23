@@ -23,7 +23,7 @@ export class TipoProdutoProvider {
     }
 
     getTiposProdutos(): Observable<TipoProduto[]> {
-        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/tipo-produto")
+        return this.http.get("https://hackathon-iguatemi.mybluemix.net/api/tipo-produto")
           .map(res => res)
           .catch(this.handleErrorObservable);
     }
