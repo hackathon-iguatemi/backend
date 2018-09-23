@@ -1,3 +1,52 @@
 page-solicitacao {
 
+    .color-button {
+        margin-top: -10px;
+        background: #D6A940;
+    }
+
+    .card-resposta {
+        // margin-left:0px!important;
+        // margin-right: 0px!important;
+    }
+
+    .margin-select {
+        padding:30px;
+        margin-right: -20px;
+    }
+
+    .img-resposta {
+        border-radius: 10%;
+    }
+
+    .title-status {
+        margin-bottom: -25px;
+    }
+
+    .status {
+        margin-top:-10px;
+        font-size:20px;
+        color: rgb(134, 107, 42);
+    }
+
+    .info-resposta {
+        margin-top: -5px;
+        margin-bottom: -30px;
+    }
+
+    .img-resposta-icon {
+        // margin-top: -05px;
+        margin-bottom: -30px;
+    }
+
+    .item-list {
+        margin-bottom: -20px;
+    }
+
+    .cronometro {
+        margin-top:-20px;
+        margin-left:50px;
+        font-size:20px;
+        color:#06085c
+    }
 }

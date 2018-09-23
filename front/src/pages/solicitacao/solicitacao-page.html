@@ -1,34 +1,73 @@
 <ion-header>
     <ion-navbar>
         <ion-title text-center>
-            Solicitacao
+            Leads
         </ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()">
+<ion-content>
+    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()" class="margin-select">
         <ng-container *ngFor="let loja of lojas">
             <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>
         </ng-container>
     </ion-select>
-
-
     <ion-list>
-        <ion-card *ngFor="let resposta of respostasPesquisaLoja">
+        <ion-item *ngFor="let resposta of respostasPesquisaLoja" class="item-list">
+            <ion-grid class="title-status">
+                <ion-row>
+                    <ion-col col-12 text-center>
+                        <p class="status">{{resposta.ver_botao == false ? 'PERDIDO!' : 'PENDENTE!'}}</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-4 class="img-resposta-icon">
+                                    <img height="40" width="50" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4e-0MFbXTwq4C_tb8NoWvmiTOyigeoBMDqd7uXhwcAjXDViN-"
+                                    />
+                                </ion-col>
+                                <ion-col col-8>
+                                    <ion-grid class="info-resposta">
+                                        <ion-row>
+                                            <ion-col col-12>
+                                                <p>
+                                                    <b>{{resposta.nome}}</b>
+                                                </p>
+                                            </ion-col>
+                                        </ion-row>
+                                        <ion-row>
+                                            <ion-col col-12>
+                                                <p>
+                                                    {{resposta.data_pesquisa}}</p>
+                                            </ion-col>
+                                        </ion-row>
+                                    </ion-grid>
+                                </ion-col>
 
-            <button ion-item>
-                <p text-center>
-                    <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col col-4 *ngFor="let url of resposta.url" height="300">
-                            <img height="100%" src="{{url}}" />
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-                <button ion-button item-end (click)="aceitar(resposta);">Aceitar</button>
-            </button>
-        </ion-card>
+                            </ion-row>
+                        </ion-grid>
+
+                    </ion-col>
+                    <ion-col col-6 text-right>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-12 text-center>
+                                    <p class="cronometro" *ngIf="resposta.ver_botao">
+                                        <b> {{resposta.cronometro}}</b>
+                                    </p>
+                                </ion-col>
+                                <ion-col col-12 >
+                                    <button *ngIf="resposta.ver_botao" ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
     </ion-list>
 </ion-content>

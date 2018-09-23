@@ -110,9 +110,49 @@ var SolicitacaoPage = /** @class */ (function () {
         this.respostaPesquisaLojaProvider.getRespostaPesquisaByIdLojasObservable(this.idLoja)
             .subscribe(function (res) {
             _this.respostasPesquisaLoja = res;
+            var _loop_1 = function (respostaPesquisa) {
+                if (String(new Date(respostaPesquisa.data_pesquisa).getTime()) != "NaN") {
+                    if ((new Date(respostaPesquisa.data_pesquisa).getTime()) + ((1000 * 60) * 200) < new Date().getTime()) {
+                        respostaPesquisa.ver_botao = false;
+                    }
+                    else {
+                        respostaPesquisa.ver_botao = true;
+                    }
+                    respostaPesquisa.timer = (new Date(respostaPesquisa.data_pesquisa).getTime()) + ((1000 * 60) * 200);
+                }
+                else {
+                    respostaPesquisa.ver_botao = false;
+                }
+                respostaPesquisa.data_pesquisa = respostaPesquisa.data_pesquisa.substring(4, respostaPesquisa.data_pesquisa.length);
+                respostaPesquisa.data_pesquisa = respostaPesquisa.data_pesquisa.substring(0, 21);
+                if (respostaPesquisa.timer != undefined && respostaPesquisa.timer != NaN) {
+                    setTimeOut = setInterval(function () {
+                        respostaPesquisa.timer = respostaPesquisa.timer - 1000;
+                        if (respostaPesquisa.timer + ((1000 * 60) * 10) < new Date().getTime()) {
+                            respostaPesquisa.ver_botao = false;
+                        }
+                        else {
+                            respostaPesquisa.ver_botao = true;
+                        }
+                        var timeinmilli = respostaPesquisa.timer;
+                        var seconds = parseInt(String((timeinmilli = timeinmilli / 1000) % 60));
+                        var minutes = parseInt(String((timeinmilli = timeinmilli / 60) % 60));
+                        var result = (minutes < 9 ? "0" + minutes : minutes) + ':' + (seconds < 9 ? "0" + seconds : seconds);
+                        respostaPesquisa.cronometro = String(result);
+                    }, 1000);
+                    setTimeOut;
+                }
+            };
+            var setTimeOut;
+            for (var _i = 0, _a = _this.respostasPesquisaLoja; _i < _a.length; _i++) {
+                var respostaPesquisa = _a[_i];
+                _loop_1(respostaPesquisa);
+            }
         }, function (err) {
             console.log(err);
         });
+    };
+    SolicitacaoPage.prototype.convertMS = function (ms) {
     };
     SolicitacaoPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -136,14 +176,13 @@ var SolicitacaoPage = /** @class */ (function () {
     };
     SolicitacaoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Solicitacao\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()">\n        <ng-container *ngFor="let loja of lojas">\n            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>\n        </ng-container>\n    </ion-select>\n\n\n    <ion-list>\n        <ion-card *ngFor="let resposta of respostasPesquisaLoja">\n\n            <button ion-item>\n                <p text-center>\n                    <b>{{resposta.nome}}</b> {{resposta.data_pesquisa}}</p>\n                <ion-grid>\n                    <ion-row>\n                        <ion-col col-4 *ngFor="let url of resposta.url" height="300">\n                            <img height="100%" src="{{url}}" />\n                        </ion-col>\n                    </ion-row>\n                </ion-grid>\n                <button ion-button item-end (click)="aceitar(resposta);">Aceitar</button>\n            </button>\n        </ion-card>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/,
+            selector: 'page-solicitacao',template:/*ion-inline-start:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Leads\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content>\n    <ion-select col-12 [(ngModel)]="idLoja" placeholder="Loja" class="zero-margin" (ionChange)="modifyLoja()" class="margin-select">\n        <ng-container *ngFor="let loja of lojas">\n            <ion-option value="{{loja.idLoja}}">{{loja.nome}}</ion-option>\n        </ng-container>\n    </ion-select>\n    <ion-list>\n        <ion-item *ngFor="let resposta of respostasPesquisaLoja" class="item-list">\n            <ion-grid class="title-status">\n                <ion-row>\n                    <ion-col col-12 text-center>\n                        <p class="status">{{resposta.ver_botao == false ? \'PERDIDO!\' : \'PENDENTE!\'}}</p>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n            <ion-grid>\n                <ion-row>\n                    <ion-col col-6>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-4 class="img-resposta-icon">\n                                    <img height="40" width="50" src=" https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4e-0MFbXTwq4C_tb8NoWvmiTOyigeoBMDqd7uXhwcAjXDViN-"\n                                    />\n                                </ion-col>\n                                <ion-col col-8>\n                                    <ion-grid class="info-resposta">\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    <b>{{resposta.nome}}</b>\n                                                </p>\n                                            </ion-col>\n                                        </ion-row>\n                                        <ion-row>\n                                            <ion-col col-12>\n                                                <p>\n                                                    {{resposta.data_pesquisa}}</p>\n                                            </ion-col>\n                                        </ion-row>\n                                    </ion-grid>\n                                </ion-col>\n\n                            </ion-row>\n                        </ion-grid>\n\n                    </ion-col>\n                    <ion-col col-6 text-right>\n                        <ion-grid>\n                            <ion-row>\n                                <ion-col col-12 text-center>\n                                    <p class="cronometro" *ngIf="resposta.ver_botao">\n                                        <b> {{resposta.cronometro}}</b>\n                                    </p>\n                                </ion-col>\n                                <ion-col col-12 >\n                                    <button *ngIf="resposta.ver_botao" ion-button class="color-button" (click)="aceitar(resposta);">Ofertar</button>\n                                </ion-col>\n                            </ion-row>\n                        </ion-grid>\n                    </ion-col>\n                </ion-row>\n            </ion-grid>\n        </ion-item>\n    </ion-list>\n</ion-content>'/*ion-inline-end:"/Users/matheuscatossi/Documents/IBM/eclipse-workspace/hackathon-iguatemi/front/src/pages/solicitacao/solicitacao-page.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */],
-            __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* App */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_loja_resposta_pesquisa_loja_service__["a" /* RespostaPesquisaLojaProvider */]) === "function" && _c || Object])
     ], SolicitacaoPage);
     return SolicitacaoPage;
+    var _a, _b, _c;
 }());
 
 //# sourceMappingURL=solicitacao-page.js.map

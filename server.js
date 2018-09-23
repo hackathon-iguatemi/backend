@@ -380,7 +380,7 @@ app.post("/api/broadcast/", function (request, response) {
   var urls = JSON.parse(request.body.urls);
   var resultado_vr = request.body.resultado_vr;
   var imagensAdded = [];
-  var data_pesquisa = "22/04/2018";
+  var data_pesquisa = new Date();
 
   if (texto_chave != undefined && idCliente != undefined && urls != undefined && resultado_vr != undefined) {
     pool.getConnection(function (err, connection) {
@@ -465,7 +465,8 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
       + " INNER JOIN ClienteImagem"
       + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
       + " INNER JOIN Imagem"
-      + " ON ClienteImagem.idImagem = Imagem.idImagem";
+      + " ON ClienteImagem.idImagem = Imagem.idImagem"
+      + " WHERE Pesquisa.data_pesquisa <> '22/04/2018' AND Pesquisa.data_pesquisa <> '1537697257245'";
 
     connection.query(sql, function (err, result) {
 
