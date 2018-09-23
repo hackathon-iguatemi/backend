@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      Resposta Solicitacao
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  AQUI TEM QUE TER AS INFOS DO USUARIO E DO PRODUTO POR EXEMPLO RESULTADO VISUAL RECOGNIZE
+  <ion-list>
+    <ion-card *ngFor="let produto of produtos">
+      <button ion-item>
+        <p text-center>
+          <b>{{produto.nome}}</b></p>
+        <p text-center>
+          <b>{{produto.preco}}</b> </p>
+        <p text-center>
+          <b>{{produto.descricao}}</b> </p>
+        <p text-center>
+          <b>{{produto.descricaoProduto}}</b> </p>
+        <p text-center>
+          <b>{{produto.tamanho}}</b> CHECK</p>
+      </button>
+    </ion-card>
+  </ion-list>
+
+  <button ion-button item-end (click)="atualizar();">ATUALIZAR</button>
+  <button ion-button item-end (click)="adicionar();">ADICIONAR</button>
+  <button ion-button item-end (click)="responder();">RESPONDER</button>
+</ion-content>

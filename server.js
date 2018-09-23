@@ -71,19 +71,9 @@ app.post("/api/loja", function (request, response) {
   if (nome != undefined && segmento != undefined) {
 
     pool.getConnection(function (err, connection) {
-
-
       response.send(JSON.stringify(getAllLojas(connect)));
       response.end();
 
-      // if (err) throw err;
-      // var sql = 'INSERT INTO Loja (nome, segmento) VALUES ("' + nome + '", "' + segmento + '");'
-      // connection.query(sql, function (err, result) {
-      //   connection.release();
-      //   if (err) throw err;
-      //   response.send(JSON.stringify(result));
-      //   response.end();
-      // });
     });
   } else {
     response.end("Parâmetros inválidos!");
@@ -500,6 +490,7 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
           resposta_pesquisa.tamanho_roupa = responsePesquisa.tamanho_roupa;
           resposta_pesquisa.data_pesquisa = responsePesquisa.data_pesquisa;
           resposta_pesquisa.resultado_vr = responsePesquisa.resultado_vr;
+          resposta_pesquisa.idLoja = responsePesquisa.idLoja;
       
           resposta_pesquisa.url = [];
           resposta_pesquisa.url.push(responsePesquisa.url);
@@ -525,6 +516,30 @@ app.get("/api/resposta-pesquisa-loja", function (request, response) {
     });
   });
 });
+
+app.post("/api/resposta-pesquisa", function (request, response) {
+  var idPesquisa = request.body.idPesquisa;
+  var idResposta = request.body.idResposta;
+  var resultado = request.body.resultado;
+  var horario = request.body.horario;
+  var atendido = request.body.atendido;
+
+  if (idPesquisa != undefined && idResposta != undefined && resultado != undefined && horario != undefined && atendido != undefined) {
+    pool.getConnection(function (err, connection) {
+      if (err) throw err;
+      var sql = 'INSERT INTO RespostaPesquisa (idPesquisa ,idResposta ,resultado ,horario ,atendido ) VALUES ("' + idPesquisa + '", "' + idResposta + '", "' + resultado + '", "' + horario + '", "' + atendido + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
+      });
+    });
+  } else {
+    response.end("Parâmetros inválidos!");
+  }
+});
+
 
 
 function addRespostaPesquisaLoja(idPesquisa, idLoja, connection) {
@@ -569,8 +584,36 @@ function getAllLojas(connection) {
   });
 }
 
+app.get("/api/produto/by-id-loja", function (request, response) {
+  var idLoja = request.query.idLoja;
 
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "SELECT *, Produto.descricao as descricaoProduto from Produto "
+    + " RIGHT JOIN TipoProduto" 
+    + " ON Produto.idTipoProduto = TipoProduto.idTipoProduto"
+    + " WHERE Produto.idLoja = '" + idLoja + "'";
 
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
+
+app.get("/api/selecao", function (request, response) {
+  pool.getConnection(function (err, connection) {
+    if (err) throw err;
+    var sql = "select * from Selecao";
+
+    connection.query(sql, function (err, result) {
+      connection.release();
+      if (err) throw err;
+      response.end("" + JSON.stringify(result));
+    });
+  });
+});
 
 app.get("/api/sugestoes", function (request, response) {
   var sugestoes = [

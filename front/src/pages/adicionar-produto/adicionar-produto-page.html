@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title text-center>
+            Adicionar Produto
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- idProduto: string;
+    idLoja: string;
+    idTipoProduto: string;
+    preco: string;
+    descricao: string;
+    descricaoProduto:string;
+    tamanho: string;
+    url: string; -->
+
+    <ion-item>
+        <ion-label color="primary" stacked>Descricao</ion-label>
+        <ion-input placeholder="Descricao" id="descricao" type="text" name="descricao" class="form-control" [(ngModel)]="produto.descricao"></ion-input>
+    </ion-item>
+
+    <ion-select col-12 [(ngModel)]="produto.idTipoProduto" placeholder="Tipo Produto" class="zero-margin">
+        <ng-container *ngFor="let tipoProduto of tiposProdutos">
+            <ion-option value="{{tipoProduto.idTipoProduto}}">{{tipoProduto.descricao}}</ion-option>
+        </ng-container>
+    </ion-select>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Preco</ion-label>
+        <ion-input placeholder="Preco" id="preco" type="text" name="preco" class="form-control" [(ngModel)]="produto.preco"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>Tamanho</ion-label>
+        <ion-input placeholder="Tamanho" id="tamanho" type="text" name="tamanho" class="form-control" [(ngModel)]="produto.tamanho"></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" stacked>URL</ion-label>
+        <ion-input placeholder="URL" id="url" type="text" name="url" class="form-control" [(ngModel)]="produto.url"></ion-input>
+    </ion-item>
+
+    <button ion-button item-end (click)="adicionar();">ADICIONAR</button>
+
+
+</ion-content>

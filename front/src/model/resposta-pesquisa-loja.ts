@@ -9,4 +9,5 @@ export class RespostaPesquisaLoja {
     data_pesquisa: string;
     resultado_vr: string;
     url: string[];
+    idLoja:string;
 }

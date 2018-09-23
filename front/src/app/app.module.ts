@@ -8,26 +8,34 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { SolicitacaoPage } from '../pages/solicitacao/solicitacao-page';
 import { AgendamentoPage } from '../pages/agendamento/agendamento-page';
-import { HttpClientModule } from '../../node_modules/@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { RespostaSolicitacaoPage } from '../pages/resposta-solicitacao/resposta-solicitacao-page';
+import { AdicionarProdutoPage } from '../pages/adicionar-produto/adicionar-produto-page';
+import { FormsModule } from '../../node_modules/@angular/forms';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     SolicitacaoPage,
-    AgendamentoPage
+    AgendamentoPage,
+    RespostaSolicitacaoPage,
+    AdicionarProdutoPage,
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
     SolicitacaoPage,
-    AgendamentoPage
+    AgendamentoPage,
+    RespostaSolicitacaoPage,
+    AdicionarProdutoPage,
   ],
   providers: [
     StatusBar,
