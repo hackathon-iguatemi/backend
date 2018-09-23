@@ -25678,6 +25678,23 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+button.button.button-md.button-default.button-default-md {
+  margin-left: 50px;
+}
+
+.color-button {
+  background-color: #D6A940;
+}
+
+img {
+  border-radius: 10px;
+}
+
+button.button.button-md.button-default.button-default-md {
+  margin-left: 10px;
+  background-color: #D6A940;
+}
+
 page-solicitacao .color-button {
   margin-top: -10px;
   background: #D6A940;

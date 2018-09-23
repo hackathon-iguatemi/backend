@@ -470,7 +470,6 @@ var AdicionarProdutoPage = /** @class */ (function () {
             // imageData is either a base64 encoded string or a file URI
             // If it's base64 (DATA_URL):
             _this.minhaFoto = 'data:image/jpeg;base64,' + imageData;
-            _this.converti = 'CONVERTIDO';
             _this.addImage(_this.minhaFoto);
         }, function (err) {
             // Handle error
@@ -481,12 +480,10 @@ var AdicionarProdutoPage = /** @class */ (function () {
         return __WEBPACK_IMPORTED_MODULE_6_rxjs_Observable__["Observable"].throw(error.message || error);
     };
     AdicionarProdutoPage.prototype.addImage = function (minhaFoto) {
-        var _this = this;
-        this.entreiAdd = 'ENTREI NO ADD';
         this.produtoProvider.addImage(minhaFoto)
             .subscribe(function (res) {
             var url = 'https://hacka-jk.herokuapp.com/upload_product';
-            _this.produto.url = url + res;
+            //this.produto.url = url + res;
         }, function (err) {
             console.log(err);
         });
@@ -494,11 +491,11 @@ var AdicionarProdutoPage = /** @class */ (function () {
     AdicionarProdutoPage.prototype.ngOnInit = function () {
         var _this = this;
         this.produto = new __WEBPACK_IMPORTED_MODULE_2__model_produto__["a" /* Produto */]();
-        // this.produto.descricao = "Regata Brasa Mora";
+        this.produto.descricao = "Regata Brasa Mora";
         // this.produto.idTipoProduto = "1";
         this.produto.preco = "50,00";
-        // this.produto.tamanho = "G";
-        // this.produto.url = "https://cdnv2.moovin.com.br/atitudeesportes/imagens/produtos/det/regata-nike-crossover-sleeveless-19e57e7b801fe269793d7c3cde77bc83.jpg";
+        this.produto.tamanho = "G";
+        this.produto.url = "https://cdnv2.moovin.com.br/atitudeesportes/imagens/produtos/det/regata-nike-crossover-sleeveless-19e57e7b801fe269793d7c3cde77bc83.jpg";
         this.tipoProdutoProvider.getTiposProdutos()
             .subscribe(function (res) {
             _this.tiposProdutos = res;
@@ -519,17 +516,13 @@ var AdicionarProdutoPage = /** @class */ (function () {
     };
     AdicionarProdutoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-adicionar-produto-page',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/backend/front/src/pages/adicionar-produto/adicionar-produto-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Adicionar Produto\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <!-- idProduto: string;\n    idLoja: string;\n    idTipoProduto: string;\n    preco: string;\n    descricao: string;\n    descricaoProduto:string;\n    tamanho: string;\n    url: string; -->\n\n    <ion-item>\n        <ion-label color="primary" stacked>Descricao</ion-label>\n        <ion-input placeholder="Descricao" id="descricao" type="text" name="descricao" class="form-control" [(ngModel)]="produto.descricao"></ion-input>\n    </ion-item>\n\n    <ion-select col-12 [(ngModel)]="produto.idTipoProduto" placeholder="Tipo Produto" class="zero-margin">\n        <ng-container *ngFor="let tipoProduto of tiposProdutos">\n            <ion-option value="{{tipoProduto.idTipoProduto}}">{{tipoProduto.descricao}}</ion-option>\n        </ng-container>\n    </ion-select>\n\n    <ion-item>\n        <ion-label color="primary" stacked>Preco</ion-label>\n        <ion-input placeholder="Preco" id="preco" type="text" name="preco" class="form-control" [(ngModel)]="produto.preco"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label color="primary" stacked>Tamanho</ion-label>\n        <ion-input placeholder="Tamanho" id="tamanho" type="text" name="tamanho" class="form-control" [(ngModel)]="produto.tamanho"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label color="primary" stacked>URL</ion-label>\n        <ion-input placeholder="URL" id="url" type="text" name="url" class="form-control" [(ngModel)]="produto.url"></ion-input>\n    </ion-item>\n\n    <button ion-button (click)="adicionar();">ADICIONAR</button>\n    <button ion-button item-end (click)="tirarFoto();">TIRAR FOTO</button>\n\n    {{converti}}\n    {{entreiAdd}}\n    {{deiPost}}\n\n\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/backend/front/src/pages/adicionar-produto/adicionar-produto-page.html"*/,
+            selector: 'page-adicionar-produto-page',template:/*ion-inline-start:"/home/augusto/Workspace/hackathons/backend/backend/front/src/pages/adicionar-produto/adicionar-produto-page.html"*/'<ion-header>\n    <ion-navbar>\n        <ion-title text-center>\n            Adicionar Produto\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n    <!-- idProduto: string;\n    idLoja: string;\n    idTipoProduto: string;\n    preco: string;\n    descricao: string;\n    descricaoProduto:string;\n    tamanho: string;\n    url: string; -->\n\n    <ion-item>\n        <ion-label color="primary" stacked>Descricao</ion-label>\n        <ion-input placeholder="Descricao" id="descricao" type="text" name="descricao" class="form-control" [(ngModel)]="produto.descricao"></ion-input>\n    </ion-item>\n\n    <ion-select col-12 [(ngModel)]="produto.idTipoProduto" placeholder="Tipo Produto" class="zero-margin">\n        <ng-container *ngFor="let tipoProduto of tiposProdutos">\n            <ion-option value="{{tipoProduto.idTipoProduto}}">{{tipoProduto.descricao}}</ion-option>\n        </ng-container>\n    </ion-select>\n\n    <ion-item>\n        <ion-label color="primary" stacked>Preco</ion-label>\n        <ion-input placeholder="Preco" id="preco" type="text" name="preco" class="form-control" [(ngModel)]="produto.preco"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label color="primary" stacked>Tamanho</ion-label>\n        <ion-input placeholder="Tamanho" id="tamanho" type="text" name="tamanho" class="form-control" [(ngModel)]="produto.tamanho"></ion-input>\n    </ion-item>\n\n    <ion-item>\n        <ion-label color="primary" stacked>URL</ion-label>\n        <ion-input placeholder="URL" id="url" type="text" name="url" class="form-control" [(ngModel)]="produto.url"></ion-input>\n    </ion-item>\n\n    <button ion-button (click)="adicionar();">ADICIONAR</button>\n    <button ion-button item-end (click)="tirarFoto();">TIRAR FOTO</button>\n</ion-content>'/*ion-inline-end:"/home/augusto/Workspace/hackathons/backend/backend/front/src/pages/adicionar-produto/adicionar-produto-page.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__["a" /* TipoProdutoProvider */], __WEBPACK_IMPORTED_MODULE_4__service_produto_produto_service__["a" /* ProdutoProvider */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__["a" /* TipoProdutoProvider */],
-            __WEBPACK_IMPORTED_MODULE_4__service_produto_produto_service__["a" /* ProdutoProvider */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__["a" /* Camera */],
-            __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__["a" /* TipoProdutoProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_tipo_produto_tipo_produto_service__["a" /* TipoProdutoProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4__service_produto_produto_service__["a" /* ProdutoProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__service_produto_produto_service__["a" /* ProdutoProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__["a" /* Camera */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__["a" /* Camera */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__angular_common_http__["a" /* HttpClient */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _f || Object])
     ], AdicionarProdutoPage);
     return AdicionarProdutoPage;
+    var _a, _b, _c, _d, _e, _f;
 }());
 
 //# sourceMappingURL=adicionar-produto-page.js.map

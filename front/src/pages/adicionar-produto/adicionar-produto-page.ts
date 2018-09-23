@@ -81,7 +81,6 @@ export class AdicionarProdutoPage implements OnInit {
             // If it's base64 (DATA_URL):
 
             this.minhaFoto = 'data:image/jpeg;base64,' + imageData;
-            this.converti = 'CONVERTIDO';
             this.addImage(this.minhaFoto);
         }, (err) => {
             // Handle error
@@ -93,11 +92,10 @@ export class AdicionarProdutoPage implements OnInit {
     }
 
     addImage(minhaFoto: any) {
-        this.entreiAdd = 'ENTREI NO ADD';
         this.produtoProvider.addImage(minhaFoto)
             .subscribe(res => {
                 const url = 'https://hacka-jk.herokuapp.com/upload_product';
-                this.produto.url = url + res;
+                //this.produto.url = url + res;
             }, err => {
                 console.log(err);
             });
@@ -106,11 +104,11 @@ export class AdicionarProdutoPage implements OnInit {
     public ngOnInit() {
         this.produto = new Produto();
 
-        // this.produto.descricao = "Regata Brasa Mora";
+        this.produto.descricao = "Regata Brasa Mora";
         // this.produto.idTipoProduto = "1";
         this.produto.preco = "50,00";
-        // this.produto.tamanho = "G";
-        // this.produto.url = "https://cdnv2.moovin.com.br/atitudeesportes/imagens/produtos/det/regata-nike-crossover-sleeveless-19e57e7b801fe269793d7c3cde77bc83.jpg";
+        this.produto.tamanho = "G";
+        this.produto.url = "https://cdnv2.moovin.com.br/atitudeesportes/imagens/produtos/det/regata-nike-crossover-sleeveless-19e57e7b801fe269793d7c3cde77bc83.jpg";
 
         this.tipoProdutoProvider.getTiposProdutos()
             .subscribe(res => {
