@@ -1,6 +1,10 @@
 var express = require("express"), app = express();
 var port = process.env.PORT || 8080;
+<<<<<<< HEAD
 app.use(express.static(__dirname + '/front'));
+=======
+app.use(express.static(__dirname + '/front/www/build'));
+>>>>>>> 09a596ab551a4f0e6a7b615aa593d7d7c62dfb8c
 
 var bodyParser = require('body-parser')
 var cors = require('cors')
@@ -69,11 +73,16 @@ app.post("/api/loja", function (request, response) {
   var nome = request.body.nome;
   var segmento = request.body.segmento;
   if (nome != undefined && segmento != undefined) {
-
     pool.getConnection(function (err, connection) {
-      response.send(JSON.stringify(getAllLojas(connect)));
-      response.end();
+      if (err) throw err;
 
+      var sql = 'INSERT INTO Loja (nome, segmento) VALUES ("' + nome + '", "' + segmento + '");'
+      connection.query(sql, function (err, result) {
+        connection.release();
+        if (err) throw err;
+        response.send(JSON.stringify(result));
+        response.end();
+      });
     });
   } else {
     response.end("Parâmetros inválidos!");
@@ -460,7 +469,11 @@ app.get("/api/resposta-pesquisa-loja/by-id", function (request, response) {
       + " ON ClientePesquisaImagem.idImagem = ClienteImagem.idImagem"
       + " INNER JOIN Imagem"
       + " ON ClienteImagem.idImagem = Imagem.idImagem"
+<<<<<<< HEAD
       + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
+=======
+      // + " WHERE RespostaPesquisaLoja.idLoja = '" + idLoja + "'"
+>>>>>>> 09a596ab551a4f0e6a7b615aa593d7d7c62dfb8c
       + "";
 
     connection.query(sql, function (err, result) {

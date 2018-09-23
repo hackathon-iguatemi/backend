@@ -22,13 +22,16 @@ export class ProdutoProvider {
     }
 
     getProdutoByIdLoja(idLoja:string): Observable<Produto[]> {
-        return this.http.get("http://localhost:8080/api/produto/by-id-loja?idLoja=" + idLoja)
-          .map(res => res)
+        return this.http.get("https://http://hackathon-iguatemi.mybluemix.net/api/produto/by-id-loja?idLoja=" + idLoja)
+        // return this.http.get("http://localhost:8080/api/produto/by-id-loja?idLoja=" + idLoja)
+        
+        .map(res => res)
           .catch(this.handleErrorObservable);
     }
 
     addProduto(produto:Produto): Observable<Object> {
-        const url = 'http://localhost:8080/api/produto/';
+        // const url = 'http://localhost:8080/api/produto/';
+        const url = 'https://http://hackathon-iguatemi.mybluemix.net/api/produto/';
 
         let body = new URLSearchParams();
         body.set('idLoja', produto.idLoja);

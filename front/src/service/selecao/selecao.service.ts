@@ -22,7 +22,7 @@ export class SelecaoProvider {
     }
 
     addProduto(selecao:Selecao): Observable<Object> {
-        const url = 'http://localhost:8080/api/selecao/';
+        const url = 'https://http://hackathon-iguatemi.mybluemix.net/api/selecao/';
 
         let body = new URLSearchParams();
         body.set('idProduto', selecao.idProduto);
